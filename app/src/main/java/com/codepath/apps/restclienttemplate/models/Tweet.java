@@ -20,6 +20,18 @@ public class Tweet {
         return tweet;
     }
 
+    public String getBody() {
+        return mBody;
+    }
+
+    public String getCreatedAt() {
+        return mCreatedAt;
+    }
+
+    public User getUser() {
+        return mUser;
+    }
+
     public static List<Tweet> extractFromJsonArray(JSONArray jsonArray) throws JSONException {
         List<Tweet> tweets = new ArrayList<>();
         for (int i = 0; i < jsonArray.length(); i++) {

@@ -8,6 +8,14 @@ public class User {
     private String mScreenName;
     private String mProfileImageUrl;
 
+    public String getProfileImageUrl() {
+        return mProfileImageUrl;
+    }
+
+    public String getScreenName() {
+        return mScreenName;
+    }
+
     public static User extractFromJson(JSONObject jsonObject) throws JSONException {
         User user = new User();
         user.mName = jsonObject.getString("name");
