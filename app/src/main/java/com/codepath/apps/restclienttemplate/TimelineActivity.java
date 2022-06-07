@@ -1,7 +1,9 @@
 package com.codepath.apps.restclienttemplate;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -36,6 +38,9 @@ public class TimelineActivity extends AppCompatActivity {
         mTweetsView = findViewById(R.id.tweets_view);
         mTweets = new ArrayList<>();
         mTweetsAdapter = new TweetsAdapter(this, mTweets);
+        Button logoutButton = findViewById(R.id.logout_button);
+
+        logoutButton.setOnClickListener(view -> onLogoutButton());
 
         mTweetsView.setLayoutManager(new LinearLayoutManager(this));
         mTweetsView.setAdapter(mTweetsAdapter);
@@ -64,5 +69,14 @@ public class TimelineActivity extends AppCompatActivity {
                 Log.e(TAG, "onFailure: " + response, throwable);
             }
         });
+    }
+
+    private void onLogoutButton() {
+        TwitterApp.getRestClient(this).clearAccessToken();
+
+        Intent i = new Intent(this, LoginActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // this makes sure the Back button won't work
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // same as above
+        startActivity(i);
     }
 }

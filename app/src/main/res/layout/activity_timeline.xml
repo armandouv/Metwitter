@@ -7,8 +7,18 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tweets_view"
-        android:layout_width="409dp"
-        android:layout_height="729dp"
+        android:layout_width="match_parent"
+        android:layout_height="637dp"
         tools:layout_editor_absoluteX="1dp"
         tools:layout_editor_absoluteY="1dp" />
+
+    <Button
+        android:id="@+id/logout_button"
+        android:layout_width="132dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="35dp"
+        android:layout_marginBottom="15dp"
+        android:text="@string/logout_label" />
 </RelativeLayout>
