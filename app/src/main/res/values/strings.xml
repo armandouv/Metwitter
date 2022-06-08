@@ -7,5 +7,7 @@
     <string name="intent_host">cprest</string>
     <string name="logout_label">Log out</string>
     <string name="compose">Compose</string>
+    <string name="compose_submit">Tweet</string>
+    <string name="compose_text_hint">What\'s happening?</string>
 
 </resources>
