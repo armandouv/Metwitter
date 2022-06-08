@@ -5,12 +5,20 @@
     android:layout_height="match_parent"
     tools:context=".TimelineActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/tweets_view"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_container"
         android:layout_width="match_parent"
-        android:layout_height="637dp"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="1dp" />
+        android:layout_height="641dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/tweets_view"
+            android:layout_width="match_parent"
+            android:layout_height="637dp"
+            tools:layout_editor_absoluteX="1dp"
+            tools:layout_editor_absoluteY="1dp" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 
     <Button
         android:id="@+id/logout_button"
