@@ -23,7 +23,6 @@ public class Util {
             long now = System.currentTimeMillis();
 
             final long diff = Math.abs(now - dateMillis);
-            Log.i(TAG, Long.toString(diff));
 
             if (diff < MINUTE_MILLIS) {
                 return "just now";
