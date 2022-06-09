@@ -1,4 +1,4 @@
-package com.codepath.apps.restclienttemplate;
+package com.codepath.apps.SimpleTweet;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.codepath.apps.restclienttemplate.adapters.TweetsAdapter;
-import com.codepath.apps.restclienttemplate.models.Tweet;
+import com.codepath.apps.SimpleTweet.adapters.TweetsAdapter;
+import com.codepath.apps.SimpleTweet.models.Tweet;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 
 import org.json.JSONArray;

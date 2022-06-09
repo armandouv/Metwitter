@@ -1,4 +1,4 @@
-package com.codepath.apps.restclienttemplate;
+package com.codepath.apps.SimpleTweet;
 
 import android.util.Log;
 

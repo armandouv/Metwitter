@@ -1,4 +1,4 @@
-package com.codepath.apps.restclienttemplate.adapters;
+package com.codepath.apps.SimpleTweet.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,9 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.codepath.apps.restclienttemplate.R;
-import com.codepath.apps.restclienttemplate.Util;
-import com.codepath.apps.restclienttemplate.models.Tweet;
+import com.codepath.apps.SimpleTweet.R;
+import com.codepath.apps.SimpleTweet.Util;
+import com.codepath.apps.SimpleTweet.models.Tweet;
 
 import java.util.List;
 

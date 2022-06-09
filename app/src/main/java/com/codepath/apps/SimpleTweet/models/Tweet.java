@@ -1,4 +1,4 @@
-package com.codepath.apps.restclienttemplate.models;
+package com.codepath.apps.SimpleTweet.models;
 
 import org.json.JSONArray;
 import org.json.JSONException;
