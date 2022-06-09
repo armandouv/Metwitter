@@ -3,6 +3,8 @@ package com.codepath.apps.restclienttemplate;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -23,6 +25,7 @@ public class ComposeActivity extends AppCompatActivity {
     private EditText mComposeText;
     private Button mSubmitTweet;
     private TwitterClient mClient;
+    private MenuItem mProgressBarItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +53,12 @@ public class ComposeActivity extends AppCompatActivity {
                 return;
             }
 
+            mProgressBarItem.setVisible(true);
             mClient.publishTweet(tweetContent, new JsonHttpResponseHandler() {
                 @Override
                 public void onSuccess(int statusCode, Headers headers, JSON json) {
                     try {
+                        mProgressBarItem.setVisible(false);
                         Tweet tweet = Tweet.extractFromJson(json.jsonObject);
                         Intent intent = new Intent();
                         intent.putExtra("tweet", Parcels.wrap(tweet));
@@ -70,5 +75,17 @@ public class ComposeActivity extends AppCompatActivity {
                 }
             });
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        this.mProgressBarItem = menu.findItem(R.id.item_progress_bar);
+        return super.onPrepareOptionsMenu(menu);
     }
 }

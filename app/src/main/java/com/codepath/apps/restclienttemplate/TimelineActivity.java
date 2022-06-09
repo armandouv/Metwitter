@@ -36,6 +36,7 @@ public class TimelineActivity extends AppCompatActivity {
     private List<Tweet> mTweets;
     private TweetsAdapter mTweetsAdapter;
     private SwipeRefreshLayout mRefreshLayout;
+    private MenuItem mProgressBarItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,10 +116,17 @@ public class TimelineActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        this.mProgressBarItem = menu.findItem(R.id.item_progress_bar);
+        return super.onPrepareOptionsMenu(menu);
+    }
+
     private void populateHomeTimeline() {
         mClient.getHomeTimeline(new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Headers headers, JSON json) {
+                mProgressBarItem.setVisible(false);
                 JSONArray jsonArray = json.jsonArray;
                 try {
                     List<Tweet> tweets = Tweet.extractFromJsonArray(jsonArray);
