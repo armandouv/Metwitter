@@ -86,6 +86,7 @@ public class ComposeActivity extends AppCompatActivity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         this.mProgressBarItem = menu.findItem(R.id.item_progress_bar);
+        this.mProgressBarItem.setVisible(false);
         return super.onPrepareOptionsMenu(menu);
     }
 }
