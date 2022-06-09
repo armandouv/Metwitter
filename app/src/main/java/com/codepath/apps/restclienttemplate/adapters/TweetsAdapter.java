@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.codepath.apps.restclienttemplate.R;
+import com.codepath.apps.restclienttemplate.Util;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 
 import java.util.List;
@@ -49,6 +50,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         private final TextView mBodyView;
         private final TextView mScreenNameView;
         private final ImageView mEmbeddedImage;
+        private final TextView mTimestampView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -56,11 +58,15 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             mBodyView = itemView.findViewById(R.id.text_body);
             mScreenNameView = itemView.findViewById(R.id.screen_name);
             mEmbeddedImage = itemView.findViewById(R.id.embedded);
+            mTimestampView = itemView.findViewById(R.id.timestamp);
         }
 
         public void bind(Tweet tweet) {
             mBodyView.setText(tweet.getBody());
             mScreenNameView.setText(tweet.getUser().getScreenName());
+
+            String timestamp = Util.getRelativeTimeAgo(tweet.getCreatedAt());
+            mTimestampView.setText(timestamp);
 
             Glide.with(mContext)
                     .load(tweet.getUser().getProfileImageUrl())
