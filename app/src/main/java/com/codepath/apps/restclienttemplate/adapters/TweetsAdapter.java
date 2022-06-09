@@ -45,23 +45,32 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private final ImageView mProfileImageView;
+        private final ImageView mProfileImage;
         private final TextView mBodyView;
         private final TextView mScreenNameView;
+        private final ImageView mEmbeddedImage;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            mProfileImageView = itemView.findViewById(R.id.profile_image);
+            mProfileImage = itemView.findViewById(R.id.profile_image);
             mBodyView = itemView.findViewById(R.id.text_body);
             mScreenNameView = itemView.findViewById(R.id.screen_name);
+            mEmbeddedImage = itemView.findViewById(R.id.embedded);
         }
 
         public void bind(Tweet tweet) {
             mBodyView.setText(tweet.getBody());
             mScreenNameView.setText(tweet.getUser().getScreenName());
+
             Glide.with(mContext)
                     .load(tweet.getUser().getProfileImageUrl())
-                    .into(mProfileImageView);
+                    .into(mProfileImage);
+
+            if (tweet.getEmbeddedImageUrl() == null) return;
+
+            Glide.with(mContext)
+                    .load(tweet.getEmbeddedImageUrl())
+                    .into(mEmbeddedImage);
         }
     }
 

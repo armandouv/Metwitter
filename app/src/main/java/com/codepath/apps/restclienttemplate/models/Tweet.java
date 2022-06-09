@@ -13,16 +13,31 @@ public class Tweet {
     private String mBody;
     private String mCreatedAt;
     private User mUser;
+    private String mEmbeddedImageUrl;
+
+    public static Tweet extractFromJson(JSONObject jsonObject) throws JSONException {
+        Tweet tweet = new Tweet();
+        tweet.mBody = jsonObject.has("full_text") ?
+                jsonObject.getString("full_text") :
+                jsonObject.getString("text");
+        tweet.mCreatedAt = jsonObject.getString("created_at");
+        tweet.mUser = User.extractFromJson(jsonObject.getJSONObject("user"));
+
+        JSONObject entities = jsonObject.getJSONObject("entities");
+        if (!entities.has("media")) return tweet;
+
+        JSONArray media = entities.getJSONArray("media");
+        if (media.length() > 0)
+            tweet.mEmbeddedImageUrl = media.getJSONObject(0).getString("media_url_https");
+
+        return tweet;
+    }
 
     public Tweet() {
     }
 
-    public static Tweet extractFromJson(JSONObject jsonObject) throws JSONException {
-        Tweet tweet = new Tweet();
-        tweet.mBody = jsonObject.getString("text");
-        tweet.mCreatedAt = jsonObject.getString("created_at");
-        tweet.mUser = User.extractFromJson(jsonObject.getJSONObject("user"));
-        return tweet;
+    public String getEmbeddedImageUrl() {
+        return mEmbeddedImageUrl;
     }
 
     public String getBody() {
