@@ -14,6 +14,8 @@ public class Tweet {
     private String mCreatedAt;
     private User mUser;
     private String mEmbeddedImageUrl;
+    private int likes;
+    private int retweets;
 
     public static Tweet extractFromJson(JSONObject jsonObject) throws JSONException {
         Tweet tweet = new Tweet();
@@ -22,6 +24,8 @@ public class Tweet {
                 jsonObject.getString("text");
         tweet.mCreatedAt = jsonObject.getString("created_at");
         tweet.mUser = User.extractFromJson(jsonObject.getJSONObject("user"));
+        tweet.likes = jsonObject.getInt("favorite_count");
+        tweet.retweets = jsonObject.getInt("retweet_count");
 
         JSONObject entities = jsonObject.getJSONObject("entities");
         if (!entities.has("media")) return tweet;
@@ -31,6 +35,14 @@ public class Tweet {
             tweet.mEmbeddedImageUrl = media.getJSONObject(0).getString("media_url_https");
 
         return tweet;
+    }
+
+    public int getLikes() {
+        return likes;
+    }
+
+    public int getRetweets() {
+        return retweets;
     }
 
     public Tweet() {

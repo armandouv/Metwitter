@@ -10,6 +10,10 @@ public class User {
     private String mScreenName;
     private String mProfileImageUrl;
 
+    public String getName() {
+        return mName;
+    }
+
     public User() {
     }
 
@@ -18,7 +22,7 @@ public class User {
     }
 
     public String getScreenName() {
-        return mScreenName;
+        return "@" + mScreenName;
     }
 
     public static User extractFromJson(JSONObject jsonObject) throws JSONException {
