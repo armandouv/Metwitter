@@ -47,7 +47,12 @@ public class TimelineActivity extends AppCompatActivity {
         mRefreshLayout = findViewById(R.id.swipe_container);
         mTweetsView = findViewById(R.id.tweets_view);
         mTweets = new ArrayList<>();
-        mTweetsAdapter = new TweetsAdapter(this, mTweets);
+        mTweetsAdapter = new TweetsAdapter(this, mTweets, (view, position) -> {
+            Intent intent = new Intent(TimelineActivity.this, TweetDetailsActivity.class);
+            Tweet tweet = mTweets.get(position);
+            intent.putExtra(Tweet.class.getSimpleName(), Parcels.wrap(tweet));
+            startActivity(intent);
+        });
         Button logoutButton = findViewById(R.id.logout_button);
 
         logoutButton.setOnClickListener(view -> onLogoutButton());

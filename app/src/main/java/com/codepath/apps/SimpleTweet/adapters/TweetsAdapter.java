@@ -20,12 +20,18 @@ import java.util.List;
 public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder> {
     private final Context mContext;
     private final List<Tweet> mTweets;
+    private final OnItemClickListener mClickListener;
 
-    public TweetsAdapter(Context context, List<Tweet> tweets) {
+    public TweetsAdapter(Context context, List<Tweet> tweets,
+                         OnItemClickListener clickListener) {
         this.mContext = context;
         this.mTweets = tweets;
+        this.mClickListener = clickListener;
     }
 
+    public interface OnItemClickListener {
+        void onItemClick(View itemView, int position);
+    }
 
     @NonNull
     @Override
@@ -59,6 +65,9 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             mScreenNameView = itemView.findViewById(R.id.screen_name);
             mEmbeddedImage = itemView.findViewById(R.id.embedded);
             mTimestampView = itemView.findViewById(R.id.timestamp);
+
+            itemView.setOnClickListener(v ->
+                    mClickListener.onItemClick(itemView, getAdapterPosition()));
         }
 
         public void bind(Tweet tweet) {
