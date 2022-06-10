@@ -5,16 +5,15 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.codepath.apps.SimpleTweet.adapters.TweetsAdapter;
+import com.codepath.apps.SimpleTweet.databinding.ActivityTimelineBinding;
 import com.codepath.apps.SimpleTweet.models.Tweet;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 
@@ -32,20 +31,19 @@ public class TimelineActivity extends AppCompatActivity {
     private TwitterClient mClient;
     public final static String TAG = "TimelineActivity";
     private final static int REQUEST_CODE = 20;
-    private RecyclerView mTweetsView;
+    private ActivityTimelineBinding mBinding;
     private List<Tweet> mTweets;
     private TweetsAdapter mTweetsAdapter;
-    private SwipeRefreshLayout mRefreshLayout;
     private MenuItem mProgressBarItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_timeline);
+        mBinding = ActivityTimelineBinding.inflate(getLayoutInflater());
+        View rootView = mBinding.getRoot();
+        setContentView(rootView);
 
         mClient = TwitterApp.getRestClient(this);
-        mRefreshLayout = findViewById(R.id.swipe_container);
-        mTweetsView = findViewById(R.id.tweets_view);
         mTweets = new ArrayList<>();
         mTweetsAdapter = new TweetsAdapter(this, mTweets, (view, position) -> {
             Intent intent = new Intent(TimelineActivity.this, TweetDetailsActivity.class);
@@ -53,19 +51,18 @@ public class TimelineActivity extends AppCompatActivity {
             intent.putExtra(Tweet.class.getSimpleName(), Parcels.wrap(tweet));
             startActivity(intent);
         });
-        Button logoutButton = findViewById(R.id.logout_button);
 
-        logoutButton.setOnClickListener(view -> onLogoutButton());
+        mBinding.logoutButton.setOnClickListener(view -> onLogoutButton());
 
-        mTweetsView.setLayoutManager(new LinearLayoutManager(this));
-        mTweetsView.setAdapter(mTweetsAdapter);
+        mBinding.tweetsView.setLayoutManager(new LinearLayoutManager(this));
+        mBinding.tweetsView.setAdapter(mTweetsAdapter);
         populateHomeTimeline();
 
         this.mClient = TwitterApp.getRestClient(this);
 
-        mRefreshLayout.setOnRefreshListener(() -> fetchTimelineAsync(0));
+        mBinding.swipeContainer.setOnRefreshListener(() -> fetchTimelineAsync(0));
 
-        mRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
+        mBinding.swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
@@ -84,7 +81,7 @@ public class TimelineActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     Log.e(TAG, "JSON Exception while refreshing", e);
                 }
-                mRefreshLayout.setRefreshing(false);
+                mBinding.swipeContainer.setRefreshing(false);
             }
 
             @Override
@@ -116,7 +113,7 @@ public class TimelineActivity extends AppCompatActivity {
             Tweet tweet = Parcels.unwrap(data.getParcelableExtra("tweet"));
             mTweets.add(0, tweet);
             mTweetsAdapter.notifyItemInserted(0);
-            mTweetsView.smoothScrollToPosition(0);
+            mBinding.tweetsView.smoothScrollToPosition(0);
         }
         super.onActivityResult(requestCode, resultCode, data);
     }

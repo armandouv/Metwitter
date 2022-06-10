@@ -30,10 +30,11 @@ The following **optional** features are implemented:
   8m", "7h"
 * [X] User sees an **indeterminate progress indicator** when any background or network task is
   happening
-* [ ] User can **select "reply" from home timeline to respond to a tweet**
-  * [ ] User that wrote the original tweet is **automatically "@" replied in compose**
 * [X] User can tap a tweet to **open a detailed tweet view**
   * [ ] User can **take favorite (and unfavorite) or retweet** actions on a tweet
+* [X] Use the View Binding library to reduce view boilerplate.
+* [ ] User can **select "reply" from home timeline to respond to a tweet**
+  * [ ] User that wrote the original tweet is **automatically "@" replied in compose**
 * [ ] User can view more tweets as they scroll with infinite pagination
 * [ ] Compose tweet functionality is built using modal overlay
 * [ ] User can **click a link within a tweet body** on tweet details view. The click will launch the
@@ -42,7 +43,6 @@ The following **optional** features are implemented:
   with [vector drawables](http://guides.codepath.org/android/Drawables#vector-drawables) where
   appropriate.
 * [ ] User can view following / followers list through any profile they view.
-* [ ] Use the View Binding library to reduce view boilerplate.
 * [ ] On the Twitter timeline, apply scrolling effects such
   as [hiding/showing the toolbar](http://guides.codepath.org/android/Using-the-App-ToolBar#reacting-to-scroll)
   by

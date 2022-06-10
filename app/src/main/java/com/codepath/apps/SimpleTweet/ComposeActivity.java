@@ -5,12 +5,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.EditText;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.codepath.apps.SimpleTweet.databinding.ActivityComposeBinding;
 import com.codepath.apps.SimpleTweet.models.Tweet;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 
@@ -22,23 +22,21 @@ import okhttp3.Headers;
 public class ComposeActivity extends AppCompatActivity {
     private static final int MAX_TWEET_LENGTH = 280;
     public final static String TAG = "ComposeActivity";
-    private EditText mComposeText;
-    private Button mSubmitTweet;
     private TwitterClient mClient;
     private MenuItem mProgressBarItem;
+    private ActivityComposeBinding mBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_compose);
+        mBinding = ActivityComposeBinding.inflate(getLayoutInflater());
+        View rootView = mBinding.getRoot();
+        setContentView(rootView);
 
         mClient = TwitterApp.getRestClient(this);
 
-        mComposeText = findViewById(R.id.compose_multiline_text);
-        mSubmitTweet = findViewById(R.id.submit_tweet);
-
-        mSubmitTweet.setOnClickListener((view) -> {
-            String tweetContent = mComposeText.getText().toString();
+        mBinding.submitTweet.setOnClickListener((view) -> {
+            String tweetContent = mBinding.composeMultilineText.getText().toString();
 
             if (tweetContent.isEmpty()) {
                 Toast.makeText(ComposeActivity.this, "Your tweet cannot be empty",
